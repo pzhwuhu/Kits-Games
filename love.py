@@ -1,6 +1,8 @@
 import tkinter as tk
 from tkinter import messagebox
 from PIL import Image, ImageTk
+import io
+import importlib.resources as pkg_resources
 
 response_index = 0
 
@@ -55,17 +57,20 @@ no_button.pack(side=tk.LEFT, padx=20)
 
 # 加载并显示图片
 try:
-    image1 = Image.open("D:/Projects/myTools/fun/你的名字4.jpg")  # 替换为你的第一张图片路径
-    image1 = image1.resize((130, 100), Image.Resampling.LANCZOS)  # 调整图片大小
-    photo1 = ImageTk.PhotoImage(image1)
-    image_label1 = tk.Label(root, image=photo1, bg="#FFE4E1")
-    image_label1.grid(row=0, column=1, rowspan=2, sticky="n", pady=(20, 10))  # 图片居中
+    # 加载嵌入的图片资源
+    with pkg_resources.path("resources", "你的名字4.jpg") as img1_path:
+        image1 = Image.open(img1_path)
+        image1 = image1.resize((130, 100), Image.Resampling.LANCZOS)  # 调整图片大小
+        photo1 = ImageTk.PhotoImage(image1)
+        image_label1 = tk.Label(root, image=photo1, bg="#FFE4E1")
+        image_label1.grid(row=0, column=1, rowspan=2, sticky="n", pady=(20, 10))  # 图片居中
 
-    image2 = Image.open("D:/Projects/myTools/fun/魔女宅急便2.jpg")  # 替换为你的第二张图片路径
-    image2 = image2.resize((130, 100), Image.Resampling.LANCZOS)  # 调整图片大小
-    photo2 = ImageTk.PhotoImage(image2)
-    image_label2 = tk.Label(root, image=photo2, bg="#FFE4E1")
-    image_label2.grid(row=2, column=1, sticky="n", pady=(10, 20))  # 图片居中
+    with pkg_resources.path("resources", "魔女宅急便2.jpg") as img2_path:
+        image2 = Image.open(img2_path)
+        image2 = image2.resize((130, 100), Image.Resampling.LANCZOS)  # 调整图片大小
+        photo2 = ImageTk.PhotoImage(image2)
+        image_label2 = tk.Label(root, image=photo2, bg="#FFE4E1")
+        image_label2.grid(row=2, column=1, sticky="n", pady=(10, 20))  # 图片居中
 except Exception as e:
     print("图片加载失败:", e)
 
